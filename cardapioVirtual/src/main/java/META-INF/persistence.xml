@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="cardapioVirtual">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>  
+		<class>org.cardapio.virtual.model.beans.Suggestion</class>
+		<class>org.cardapio.virtual.model.beans.User</class>
+		<class>org.cardapio.virtual.model.beans.Address</class>
+		<class>org.cardapio.virtual.model.beans.Company</class>
+		<class>org.cardapio.virtual.model.beans.Franchise</class>
+            <properties>  
+            
+            <!--dados da conexao-->
+		    <property name="connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>  
+		    <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>   
+		    <property name="javax.persistence.jdbc.user" value="projeto" />
+		    <property name="javax.persistence.jdbc.password" value="root" />
+		    
+		    <!--propriedades do hibernate-->
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+		    <property name="hibernate.show_sql" value="true" />
+		    <property name="hibernate.format_sql" value="true" />
+		    
+		    <!--atualiza o banco, gera as tabelas se for preciso 
+		    <property name="hibernate.hbm2ddl.auto" value="update" />-->
+            </properties>  
+	</persistence-unit>
+</persistence>
