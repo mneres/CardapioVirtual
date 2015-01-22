@@ -6,7 +6,7 @@
 <title>Cadastro de Usuário</title>
 </head>
 <body>
-<%@include file="../common/menu.jsp" %>
+<%@include file="../common/menuFixed.jsp" %>
 
 <c:if test="${not empty msg}">
 	<div class="alert alert-info" role="alert">${msg}</div>

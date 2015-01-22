@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user")
 public class UserController{	
-	
 	private static final String addNewUser = "user/addUser";
 	private static final String returnUser = "user/addUser";
 	

@@ -23,10 +23,10 @@
 </head>
 <body>
     <!-- MENU -->
-	<nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -43,7 +43,8 @@
           </ul>
         </div><!--/.nav-collapse -->
       </div>
-    </nav>   
+    </nav>
+    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

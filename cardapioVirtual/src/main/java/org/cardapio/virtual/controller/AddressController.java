@@ -28,7 +28,7 @@ public class AddressController {
 			
 		}
        
-        ModelAndView mv = new ModelAndView("findEndereco");
+        ModelAndView mv = new ModelAndView("user/findEndereco");
         if(!(cep == null)){
     		mv.addObject("cep", cep.getCep());
     		mv.addObject("bairro", cep.getBairro());
@@ -41,15 +41,14 @@ public class AddressController {
 	}
 	
 	@RequestMapping(value = "/saveAddress", method=RequestMethod.GET)
-	public ModelAndView save(@RequestParam(value="numero", required=true) int ParamNum, 
+	public String save(@RequestParam(value="numero", required=true) int ParamNum, 
 								@ModelAttribute @Valid Cep cep, Model model, HttpSession session){
 		
-		ModelAndView mv = new ModelAndView("listOfRestaurants");
 		
 		AddressManager manager = new AddressManager();
 		manager.saveAddress(cep, ParamNum, session);
 		
-		return mv;
+		return "redirect:restaurants/list";
 	}	
 
 }

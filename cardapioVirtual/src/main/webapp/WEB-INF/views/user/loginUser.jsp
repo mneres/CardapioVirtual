@@ -6,7 +6,7 @@
 <title>Cadastro de Usuário</title>
 </head>
 <body>
-<%@include file="../common/menu.jsp" %>
+<%@include file="../common/menuFixed.jsp" %>
 	<h1 align="center">Logar</h1>
 	<div style="margin-left: 100px; margin-right: 100px; margin-top: 30px">
 		<form method="post" action="doLogin">
