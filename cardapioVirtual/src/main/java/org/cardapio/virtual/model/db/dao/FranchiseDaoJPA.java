@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 
 import org.cardapio.virtual.model.beans.Company;
 import org.cardapio.virtual.model.beans.Franchise;
+import org.cardapio.virtual.model.beans.User;
 
 import antlr.StringUtils;
 
@@ -98,6 +99,19 @@ public class FranchiseDaoJPA implements FranchiseDao{
 			return f;
 		}
 		return null;
+	}
+	
+	public Franchise findByEmail(String email) {
+			
+			EntityManager em = factory.createEntityManager();
+			
+			if (!email.isEmpty()) {
+				Franchise f = new Franchise();
+				String q = "SELECT f FROM Franchise f WHERE f.email =:ema";
+				f = (Franchise) em.createQuery(q).setParameter("ema", email).getSingleResult();
+				return f;
+			}
+			return null;
 	}
 	
 }

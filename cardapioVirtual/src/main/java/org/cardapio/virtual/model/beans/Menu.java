@@ -3,7 +3,6 @@ package org.cardapio.virtual.model.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,8 +17,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Entity @Table(name = "Menu")
+import org.hibernate.annotations.Cascade;
+
+@Entity @Table(name = "Menu", uniqueConstraints=@UniqueConstraint(columnNames={"ID_MENU", "ID_FRANCHISE"}))
 public class Menu implements Serializable {
 	@Id @SequenceGenerator(name="seq_menu", sequenceName="seq_menu", allocationSize=1) 
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_menu") 
@@ -28,12 +30,12 @@ public class Menu implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, optional = true, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name="ID_FRANCHISE", nullable=true)
 	private Franchise franchise;
-	@Column(name="NAME_MENU")
+	@Column(name="NAME_MENU", unique=true)
 	private String name;
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinTable(name="MENU_PRODUCT", 
                joinColumns=  @JoinColumn( name = "id_menu"), 
-               inverseJoinColumns= @JoinColumn(name = "id_product") )
+               inverseJoinColumns= @JoinColumn(name = "id_product"))
 	private List<Product> product = new ArrayList<Product>();
 
 	public List<Product> getProduct() {

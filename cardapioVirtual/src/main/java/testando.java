@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,7 +18,7 @@ public class testando {
 	
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardapioVirtual");
 	
-	public static void main(String args[]){
+	public static void main(String args[]) throws Exception{
 
 		/*SuggestionDao dao = new SuggestionDaoJPA();
 		
@@ -77,7 +76,7 @@ public class testando {
 			System.out.println(fa.getCnpj());
 			System.out.println(fa.getAddress());
 		}
-		
+
 		MenuDao menuDao = new MenuDaoJPA();
 		
 		FranchiseDao fraDao = new FranchiseDaoJPA();
@@ -88,21 +87,123 @@ public class testando {
 		m.setFranchise(f);
 		
 		Product p = new Product();
-		p.setDescription("X-Calafrango");
-		p.setIngredients("Frango, Calabresa, Queijo");
-		p.setPrice(12.5);
+		p.setDescription("X-Bacon");
+		p.setIngredients("Queijo, Bacon, Salada");
+		p.setPrice(10);
 
 		m.getProduct().add(p);
-		menuDao.add(m);*/
+		menuDao.add(m);
+		
+		m.setName("Bebidas");
+		m.setFranchise(f);
+		p.setDescription("Coca");
+		p.setIngredients("250 ML");
+		p.setPrice(5);
+
+		m.getProduct().add(p);
+		menuDao.add(m);		
+		
 		
 		MenuDao menuDao = new MenuDaoJPA();
-		List<Menu> t = menuDao.list();
+		
+		FranchiseDao fraDao = new FranchiseDaoJPA();
+		Franchise f = fraDao.listById((long) 61);
+		
+		Menu m = new Menu();
+		m.setId((long)50);
+		m.setName("Lanches");
+		m.setFranchise(f);
+		
+		Product p = new Product();
+		p.setDescription("Teste");
+		p.setIngredients("Queijo, Bacon, Salada");
+		p.setPrice(10);
+
+		m.getProduct().add(p);
+		
+		menuDao.add(m);
+		
+		Product p = new Product();
+		p.setDescription("X-Bacon");
+		p.setIngredients("Queijo, Bacon, Salada");
+		p.setPrice(10);
+
+		m.getProduct().add(p);
+		menuDao.add(m);
+
+		FranchiseDao fraDao = new FranchiseDaoJPA();
+		Franchise f = fraDao.listById((long) 61);
+		
+		MenuDao menuDao = new MenuDaoJPA();
+		List<Menu> t = menuDao.listbyFranchise(f);
 		for(Menu i:t){
 			System.out.println(i.getName());
-			System.out.println(i.getFranchise());
 			for (Product p : i.getProduct()){
 				System.out.println(p.getIngredients());
 			}
 		}
+		System.out.println("FIM");
+		
+		
+		GeoApiContext context = new KeyGoogle().getContext();
+		
+	    DistanceMatrix matrix = DistanceMatrixApi.newRequest(context)
+	            .origins("12238-470")
+	            .destinations("12232-234")
+	            .mode(TravelMode.DRIVING)
+	            .language("pt-BR")
+	            .await();
+	    
+	    for (DistanceMatrixRow row : matrix.rows) {
+	        for (DistanceMatrixElement cell : row.elements) {	
+	        	  System.out.println(cell.duration);
+	        	  System.out.println(cell.distance);
+	        	  System.out.println(cell.status);
+	        }
+	    }*/
+		
+		
+		
+		
+		//ADICIONAR PRODUTO
+		MenuDao menuDao = new MenuDaoJPA();
+		
+		FranchiseDao fraDao = new FranchiseDaoJPA();
+		Franchise f = fraDao.listById((long) 61);
+		
+		Menu m = new Menu();
+		m.setId((long)50);
+		m.setName("Lanches");
+		m.setFranchise(f);
+		
+		Product p = new Product();
+		p.setDescription("Teste");
+		p.setIngredients("Queijo, Bacon, Salada");
+		p.setPrice(10);
+
+		m.getProduct().add(p);
+		
+		menuDao.add(m);
+		
+		//EDITAR PRODUTO
+		
+		
+		//REMOVER PRODUTO
+		long idProd = 64;
+		
+		List<Product> lst = new ArrayList<Product>();
+		
+		for(Product i : m.getProduct()){
+			if(i.getId()!=idProd){
+				lst.add(i);
+			}
+		}
+		m.getProduct().clear();
+		m.getProduct().addAll(lst);
+		
+		menuDao.add(m);	
+		ProductDao prodDao = new ProductDaoJPA();
+		prodDao.remove(idProd);
+		
 	}
 }

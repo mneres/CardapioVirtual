@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AddressController {
 	
+	private AddressManager manager = new AddressManager();
+	
 	@RequestMapping(value = "/searchAddress", method=RequestMethod.GET)
 	public ModelAndView search(@RequestParam(value="cep", required=true) String ParamCep, Model model){
 		RestTemplate restTemplate = new RestTemplate();
@@ -40,15 +42,18 @@ public class AddressController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/changeAddress", method=RequestMethod.GET)
+	public ModelAndView changeAddress(Model model, HttpSession session){
+		manager.forgetAddress(session);
+		return new ModelAndView("user/findEndereco");
+	}
+	
+	
 	@RequestMapping(value = "/saveAddress", method=RequestMethod.GET)
 	public String save(@RequestParam(value="numero", required=true) int ParamNum, 
 								@ModelAttribute @Valid Cep cep, Model model, HttpSession session){
 		
-		
-		AddressManager manager = new AddressManager();
 		manager.saveAddress(cep, ParamNum, session);
-		
-		return "redirect:restaurants/list";
+		return "redirect:restaurants/listByAddress?destination=" + cep.getCep() + "&distance=10";
 	}	
-
 }

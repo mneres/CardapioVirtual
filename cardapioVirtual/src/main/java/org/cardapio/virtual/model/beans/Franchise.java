@@ -14,8 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-@Entity @Table(name = "franchise")
+@Entity @Table(name = "franchise", uniqueConstraints=@UniqueConstraint(columnNames={"email"}))
 public class Franchise implements Serializable {
 	@Id @SequenceGenerator(name="seq_franchise", sequenceName="seq_franchise", allocationSize=1) 
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_franchise") 
@@ -36,6 +37,8 @@ public class Franchise implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
 	@JoinColumn(name="ID_ADDRESS", nullable=false) 
 	private Address address;
+	@Column(nullable=false)
+	private String email;
 	
 	public Long getId() {
 		return id;
@@ -90,5 +93,11 @@ public class Franchise implements Serializable {
 	}
 	public void setDescriptionBusiness(String descriptionBusiness) {
 		this.descriptionBusiness = descriptionBusiness;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

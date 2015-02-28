@@ -15,6 +15,7 @@
 	    <junit.version>4.11</junit.version>
 	    <jdk.version>1.6</jdk.version>
 	    <jackson.version>1.9.10</jackson.version>
+	    <google.version>0.1.5</google.version>
   	  </properties>
   	  
 	<dependencies>
@@ -84,6 +85,12 @@
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.maps</groupId>
+		    <artifactId>google-maps-services</artifactId>
+		    <version>${google.version}</version>
 		</dependency>
 		
 		

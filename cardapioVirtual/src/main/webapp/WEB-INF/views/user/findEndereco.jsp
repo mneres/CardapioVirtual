@@ -13,6 +13,9 @@
     <c:when test="${not empty error}">
        	${error}
     </c:when>
+    <c:when test="${not empty error}">
+       	${error}
+    </c:when>
     <c:when test="${not empty cep}">
     	<div class="container">
 	    	<form method="GET" action="saveAddress" modelAttribute="Cep">

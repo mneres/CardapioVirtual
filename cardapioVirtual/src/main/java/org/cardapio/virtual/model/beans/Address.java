@@ -20,7 +20,7 @@ public class Address implements Serializable{
 	private String street;
 	private double ad_number;
 	private String neighborhood;
-	private double code;
+	private String code;
 	private String city;
 			
 	public Long getId() {
@@ -47,10 +47,10 @@ public class Address implements Serializable{
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
 	}
-	public double getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(double code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	public String getCity() {

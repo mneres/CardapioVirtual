@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity @Table(name = "product")
 public class Product implements Serializable{
 	@Id @SequenceGenerator(name="seq_product", sequenceName="seq_product", allocationSize=1) 
