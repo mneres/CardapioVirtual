@@ -5,8 +5,8 @@ function createNewProduct()
 	var ingredients = $("#ingredients").val();
 	var price = $("#price").val();
 	
-	if(idMenu.lenght > 0 && description.lenght > 0 && 
-		ingredients.lenght > 0 && price.lenght > 0){
+	//if(idMenu.lenght > 0 && description.lenght > 0 && 
+		//ingredients.lenght > 0 && price.lenght > 0){
 			$.ajax({
 		        type: 'POST',
 		        url: "../menu/addProd", 
@@ -20,13 +20,34 @@ function createNewProduct()
 		        	$("#msg").text("Erro ao Cadastrar");
 		        }
 			});
-	} else {
-		$("#msg").text("Preencher todos os Campos");
-	}
+	//} else {
+		//$("#msg").text("Preencher todos os Campos");
+	//}
 }
 
-function editProduct(){
+function editProduct(id){
+	var description = $("#description").val();
+	var ingredients = $("#ingredients").val();
+	var price = $("#price").val();
 	
+	//if(description.lenght > 0 && 
+		//ingredients.lenght > 0 && price.lenght > 0){
+			$.ajax({
+		        type: 'POST',
+		        url: "../menu/editProd", 
+		        data: {id: id, description: description, 
+		        	ingredients: ingredients, price: price},
+		        dataType: "json",
+		        success : function(data) {
+		        	$("#msg").text("Cadastrado com sucesso!");
+		        },
+		        error : function(data){
+		        	$("#msg").text("Erro ao Cadastrar");
+		        }
+			});
+	/*} else {
+		$("#msg").text("Preencher todos os Campos");
+	}*/
 }
 
 function removeProduct(idMenu, idProd){

@@ -7,6 +7,27 @@
 
 <!-- Shop Item CSS -->
     <link href="${pageContext.request.contextPath}/static/css/shop-item.css" rel="stylesheet">
+<script>
+function listEvaluation(id){
+	var h = 500;
+	var w = 700;
+	openWindow("listEvaluation?idProd=" + id, h, w);
+}
+
+function addEvaluation(id){
+	var h = 500;
+	var w = 700;
+	openWindow("addEvaluation?idProd=" + id, h, w);
+}
+
+function openWindow(page, h, w){
+	LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
+	TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
+	settings = 'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars=0,resizable';
+	myWindow = window.open(page, 
+			"myWindow", settings);
+}
+</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -63,14 +84,14 @@
 				<div class="col-md-12">Preço<br/><%= p.getPrice() %></div>
 			</div>
 			<div class="col-md-2">
-				<button type="button" class="btn btn-default" title="Adicionar produto ao carrinho" 
-						aria-label="Left Align" style="color:#00CD00">
-				  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-				</button>
-				<button type="button" class="btn btn-default"  title="Ver comentários sobre o produto" 
-						aria-label="Left Align" style="color:#4169E1">
+				<a class="btn btn-default" title="Avaliar Produto" onclick="addEvaluation(<%= p.getId() %>);"
+						aria-label="Left Align" style="color:#fff;background-color: #228B22">
+				  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</a>
+				<a class="btn btn-default"  title="Ver comentários sobre o produto" onclick="listEvaluation(<%= p.getId() %>);"
+						aria-label="Left Align" style="color:#fff;background-color: #4169E1">
 				  <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-				</button>
+				</a>
 			</div>
 		</div>
 		<hr size="1" style="border-top: 1px solid #ccc"/>

@@ -6,22 +6,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 <script src="${pageContext.request.contextPath}/static/js/myJs/addProduct.js"></script>
 <script>
 	
 	function addProduct(id){
-		openWindow("../franchise/addProduct?idfranchise=" + id);
-	}
-	
-	function editProduct(id, prod){
-		openWindow("../franchise/editProduct?idfranchise="+id+"&product="+prod);
-	}
-
-	function openWindow(page){
 		var h = 550;
 		var w = 700;
-		
+		openWindow("../franchise/addProduct?idfranchise=" + id, h, w);
+	}
+	
+	function listEvaluation(id){
+		var h = 500;
+		var w = 700;
+		openWindow("../restaurants/listEvaluation?idProd=" + id, h, w);
+	}
+
+	
+	function editProduct(id, prod){
+		var h = 550;
+		var w = 700;
+		openWindow("../franchise/editProduct?idfranchise="+id+"&product="+prod, h, w);
+	}
+	
+	function addMenu(id){
+		var h = 300;
+		var w = 700;
+		openWindow("../franchise/addMenu?idfranchise=" + id, h, w);
+	}
+
+	function openWindow(page, h, w){
 		LeftPosition = (screen.width) ? (screen.width-w)/2 : 0;
 		TopPosition = (screen.height) ? (screen.height-h)/2 : 0;
 		settings = 'height='+h+',width='+w+',top='+TopPosition+',left='+LeftPosition+',scrollbars=0,resizable';
@@ -63,10 +76,10 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><%= f.getCompany().getCompanyName() %><b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= f.getCompany().getCompanyName() %><b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i>Sair</a>
+                            <a href="logoff">Sair</a>
                         </li>
                     </ul>
                 </li>
@@ -75,24 +88,22 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i>Página Principal</a>
+                        <a href="index.html">Página Principal</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Editar Dados<i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                        Editar Dados</a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="#">Empresa</a>
+                                <a onclick="addMenu(<%= f.getId()%>)">Adicionar Menu</a>
                             </li>
                             <li>
-                                <a href="#">Menu</a>
-                            </li>
-                            <li>
-                                <a href="#">Produtos</a>
+                                <a onclick="addProduct(<%= f.getId()%>)">Adicionar Produtos</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i>Avaliações</a>
+                        <a href="charts.html"></i>Avaliações</a>
                     </li>
                 </ul>
             </div>
@@ -124,18 +135,26 @@
 		
 	           </div>
                 <div style="width: 100%" align="center">
-                    <p>
+                	<p>
+                		<a class="btn btn-primary" onclick="addMenu(<%= f.getId()%>)" role="button">Adicionar Menu</a>
                         <a class="btn btn-primary" onclick="addProduct(<%= f.getId()%>)" role="button">Adicionar Produto</a>
-                        <a class="btn btn-primary" href="#" role="button">Adicionar Menu</a>
-                        <a class="btn btn-primary" href="#" role="button">Remover Menu</a>
-                        <a class="btn btn-primary" href="#" role="button">Editar Menu</a>
                     </p>
                 </div>
 				<%
 					for(Menu menu: listMenu){		
 				%>
 					<div class="alert alert-danger" role="alert" align="center"  style="background-color: #EEEED1">
-				      <p><strong><%=menu.getName()%></strong></p>
+				      <div class="row">
+					      <p><strong><%=menu.getName()%></strong></p>
+						<a class="btn btn-primary" role="button" 
+							onclick="">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</a>
+						<a class="btn btn-primary" role="button" 
+							onclick="">
+							<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+						</a>
+				      </div>
 				    </div>
 					<%
 						for (Product p : menu.getProduct()){
@@ -157,7 +176,7 @@
 									onclick="removeProduct(<%=menu.getId()%>,<%=p.getId()%>);">
 									<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
 								</a>
-								<a class="btn btn-primary" href="#" role="button">
+								<a class="btn btn-primary" role="button" onclick="listEvaluation(<%= p.getId() %>);">
 									<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
 								</a>
 							</div>

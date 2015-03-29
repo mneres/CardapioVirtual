@@ -25,9 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
-	private static final String page = "restaurant/franchise/homeFranchise";
-	private static final String pageAdd = "restaurant/franchise/addProduct";
-	
 	@RequestMapping(value ="/removeProd", method=RequestMethod.POST)
 	public @ResponseBody List<String> removeProduct(@RequestParam(value="idMenu", required=true) String idMenu, 
 			@RequestParam(value="idProd", required=true) String idProd){
@@ -49,7 +46,7 @@ public class MenuController {
 
 		}
 		List<String> l = new ArrayList<String>();
-		l.add("Adicionado com sucesso"); 
+		l.add("Removido com sucesso"); 
 		return l;
 	}
 
@@ -73,28 +70,24 @@ public class MenuController {
 		return "ok";
 	}
 	
-	@RequestMapping(value ="/editProd", method=RequestMethod.GET)
-	public ModelAndView editProduct(@ModelAttribute @Valid Product prod,
-			@RequestParam(value="idMenu", required=true) String idMenu){
-		ModelAndView mv = new ModelAndView(page);
-		MenuDao menuDao = new MenuDaoJPA();
-		Menu m = menuDao.listbyId(Long.parseLong(idMenu));
+	@RequestMapping(value ="/editProd", method=RequestMethod.POST)
+	public @ResponseBody String editProduct(@RequestParam(value="id", required=true) String id,
+    		@RequestParam(value="description", required=true) String description,
+    		@RequestParam(value="ingredients", required=true) String ingredients,
+    		@RequestParam(value="price", required=true) String price) {
 		
-		Product p = new Product();
-		p.setId(prod.getId());
-		p.setDescription(prod.getDescription());
-		p.setIngredients(prod.getIngredients());
-		p.setPrice(prod.getPrice());
-
-		m.getProduct().add(p);
-		
-		menuDao.add(m);
-		mv.addObject("msg", "Produto editado com sucesso!");
-		return mv;
+		ProductDao pdao = new ProductDaoJPA();
+    	Product prod = pdao.findById(Long.parseLong(id));
+    	prod.setDescription(description);
+    	prod.setIngredients(ingredients);
+    	prod.setPrice(Long.parseLong(price));
+    	
+    	pdao.edit(prod);
+		return "ok";
 	}
 	
-	@RequestMapping(value ="/addMenu", method=RequestMethod.GET)
-	public List<String> addMenu(@ModelAttribute @Valid Menu menu,
+	@RequestMapping(value ="/addMenu", method=RequestMethod.POST)
+	public @ResponseBody String addMenu(@RequestParam(value="name", required=true) String name,
 			@RequestParam(value="idFranchise", required=true) String idFranchise){
 		MenuDao menuDao = new MenuDaoJPA();
 		
@@ -102,13 +95,11 @@ public class MenuController {
 		Franchise f = fraDao.listById(Long.parseLong(idFranchise));
 		
 		Menu m = new Menu();
-		m.setName(menu.getName());
+		m.setName(name.toString());
 		m.setFranchise(f);
 		
 		menuDao.add(m);
-		List<String> l = new ArrayList<String>();
-		l.add("Adicionado com sucesso"); 
-		return l;
+		return "ok";
 	}
 	
 }

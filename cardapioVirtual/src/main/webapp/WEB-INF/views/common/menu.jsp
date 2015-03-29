@@ -54,17 +54,27 @@
 	            </li>
 	          </ul>
           </c:if>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="<%=request.getContextPath()%>/user/addUser"><p>Cadastre-se</p></a></li>
-            <li><a href="<%=request.getContextPath()%>/login/logar"><p>Entrar</p></a></li>
-          </ul>
+          <c:if test="${empty userId}">
+	          <ul class="nav navbar-nav navbar-right">
+	          	<c:if test="${empty AddressCep}">
+	          		<li><a href="<%=request.getContextPath()%>/franchise/logar"><p>Área Reservada para Empresas</p></a></li>
+	            </c:if>
+	            <li><a href="<%=request.getContextPath()%>/user/addUser"><p>Cadastre-se</p></a></li>
+	            <li><a href="<%=request.getContextPath()%>/login/logar"><p>Entrar</p></a></li>
+          </c:if>
+           <c:if test="${not empty userId}">
+	          <ul class="nav navbar-nav navbar-right">
+	          <li><a href="<%=request.getContextPath()%>/login/homeUser"><p>Bem-Vindo: ${userName}</p></a></li>
+	          <li><a href="<%=request.getContextPath()%>/login/logout"><p>Sair</p></a></li>
+	          </ul>
+          </c:if>          
         </div><!--/.nav-collapse -->
       </div>
     </nav>   
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="${pageContext.request.contextPath}/static/js/assets/ie10-viewport-bug-workaround.js"></script>

@@ -4,11 +4,8 @@ import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.cardapio.virtual.model.beans.Franchise;
 import org.cardapio.virtual.model.beans.Menu;
 import org.cardapio.virtual.model.beans.Product;
-import org.cardapio.virtual.model.db.dao.FranchiseDao;
-import org.cardapio.virtual.model.db.dao.FranchiseDaoJPA;
 import org.cardapio.virtual.model.db.dao.MenuDao;
 import org.cardapio.virtual.model.db.dao.MenuDaoJPA;
 import org.cardapio.virtual.model.db.dao.ProductDao;
@@ -162,48 +159,74 @@ public class testando {
 	        }
 	    }*/
 		
-		
-		
-		
-		//ADICIONAR PRODUTO
-		MenuDao menuDao = new MenuDaoJPA();
-		
-		FranchiseDao fraDao = new FranchiseDaoJPA();
-		Franchise f = fraDao.listById((long) 61);
-		
-		Menu m = new Menu();
-		m.setId((long)50);
-		m.setName("Lanches");
-		m.setFranchise(f);
-		
-		Product p = new Product();
-		p.setDescription("Teste");
-		p.setIngredients("Queijo, Bacon, Salada");
-		p.setPrice(10);
 
-		m.getProduct().add(p);
-		
-		menuDao.add(m);
+		/*
+		 Product prod = new Product();
+		prod.setDescription("Teste");
+		prod.setIngredients("Queijo, Bacon, Salada");
+		prod.setPrice(20);
 		
 		//EDITAR PRODUTO
+		MenuDao menuDao = new MenuDaoJPA();
+		Menu m = menuDao.listbyId(Long.parseLong("61"));
 		
+		Product p = new Product();
+		p.setId(prod.getId());
+		p.setDescription(prod.getDescription());
+		p.setIngredients(prod.getIngredients());
+		p.setPrice(prod.getPrice());
 		
-		//REMOVER PRODUTO
-		long idProd = 64;
-		
-		List<Product> lst = new ArrayList<Product>();
-		
-		for(Product i : m.getProduct()){
-			if(i.getId()!=idProd){
-				lst.add(i);
-			}
-		}
-		m.getProduct().clear();
-		m.getProduct().addAll(lst);
+		m.getProduct().add(p);
 		
 		menuDao.add(m);	
+		
+		Product prod = new Product();
 		ProductDao prodDao = new ProductDaoJPA();
-		prodDao.remove(idProd);
+		prod = prodDao.findById((long) 141);
+		
+		User us = new User();
+		UserDao usDao = new UserDaoJPA();
+		us = usDao.findById((long) 3);
+		
+		EvaluationProduct e = new EvaluationProduct();
+		EvaluationProductDao evaDao = new EvaluationProductDaoJPA();
+		e.setProd(prod);
+		e.setUser(us);
+		e.setEvaluation(5);
+		e.setComment("TEste");
+		
+		System.out.println(us.getEmail());
+		System.out.println(prod.getIngredients());
+		
+		evaDao.addEvaluation(e);
+
+		Product prod = new Product();
+		ProductDao prodDao = new ProductDaoJPA();
+		prod = prodDao.findById((long) 206);
+		
+		EvaluationProductDao evaDao = new EvaluationProductDaoJPA();
+		for(EvaluationProduct e:evaDao.findByProduct(prod)){
+			System.out.println(e.getProd());
+			System.out.println(e.getComment());
+			System.out.println(e.getEvaluation());
+		}
+		
+		RecomendationDao pdao = new RecomendationDaoJDBC();
+		List<Product>lst = pdao.recomendation((long) 4);
+		for(Product e:lst){
+			System.out.println(e.getDescription());
+			System.out.println(e.getPrice());
+		}
+		System.out.println("FINISHED");*/
+		
+		Product prod = new Product();
+		ProductDao prodDao = new ProductDaoJPA();
+		prod = prodDao.findById((long) 206);	
+		List<Product> lst = new ArrayList<Product>();
+		lst.add(prod);
+		MenuDao mdao = new MenuDaoJPA();
+		List<Menu> l = mdao.listbyProduct(prod);
+		System.out.println("FOI");
 		
 	}
 }

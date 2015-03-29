@@ -14,7 +14,7 @@
 			<div class="col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h10 class="panel-title">Bem-Vindo ao Cardápio Virtual</h10>
+						<h10 class="panel-title">Bem-Vindo ao Cardápio Virtual - Área para Empresas</h10>
 					</div>
 						<div class="panel-body">
 							<form method="post" action="doLogin">

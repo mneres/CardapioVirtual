@@ -44,9 +44,9 @@ public class LogonUserController {
 	}
 
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
-		return  "redirect:index";
+		return  new ModelAndView("user/loginUser");
 	}
 	
 	@RequestMapping(value = "/logar")

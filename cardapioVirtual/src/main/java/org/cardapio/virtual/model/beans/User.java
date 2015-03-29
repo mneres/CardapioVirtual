@@ -25,10 +25,10 @@ public class User implements Serializable{
 	private Long id;
 	private String email;	
 	private String name;
-	private double phone;
+	private String phone;
 	@Column(name="second_phone")
-	private double secondPhone;
-	@Temporal(TemporalType.TIMESTAMP) @Column(name="date_birth")
+	private String secondPhone;
+	@Temporal(TemporalType.DATE) @Column(name="date_birth")
 	private Date dateBirth;
 	private String cpf;	
 	@OneToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.EAGER, orphanRemoval = true)
@@ -54,16 +54,16 @@ public class User implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(double phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public double getSecondPhone() {
+	public String getSecondPhone() {
 		return secondPhone;
 	}
-	public void setSecondPhone(double secondPhone) {
+	public void setSecondPhone(String secondPhone) {
 		this.secondPhone = secondPhone;
 	}
 	public Date getDateBirth() {

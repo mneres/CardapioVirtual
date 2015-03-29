@@ -9,6 +9,12 @@
 
 <script src="${pageContext.request.contextPath}/static/js/myJs/addProduct.js"></script>
 
+<script>
+	window.onbeforeunload = function () {
+		window.opener.location.reload();
+	}
+</script>
+	
 </head>
 <body>
 <%@page import = "org.cardapio.virtual.model.beans.Franchise, org.cardapio.virtual.model.beans.Product, org.cardapio.virtual.model.beans.Menu,
@@ -26,28 +32,11 @@
 		if(!prod.isEmpty()){
 			ProductDao pdao = new ProductDaoJPA();
 			p = pdao.findById(Long.parseLong(prod));
-			
-			String fran = request.getAttribute("franchise").toString();
-			
-			if(!fran.isEmpty()){
-				String idFranchise = (String)fran; 
-				FranchiseDao franDao = new FranchiseDaoJPA();
-				Franchise f = franDao.listById(Long.parseLong(idFranchise));
-				MenuDao dao = new MenuDaoJPA();
-				lst = dao.listbyFranchise(f);
-			}
 		}
 	%>
 	<div class="container">
 		<form method="POST" modelAttribute="Product" action="../menu/addProd">
-			<br/>
-			<label for="menu">Menu</label>
-			<select class="form-control" name="menu" id="menu">
-				<%for(Menu m: lst){ %>
-                   <option value="<%= m.getId() %>"><%= m.getName() %></option>
-                 <%} %>
-            </select>
-			<br>	
+			<br/>	
 			<label for="description">Descrição</label>
 			<input type="text" value="<%=p.getDescription()%>" name="description" id="description" class="form-control" placeholder="description" aria-describedby="basic-addon1">
 			
@@ -60,7 +49,7 @@
 			<input type="text" value="<%=p.getPrice()%>" name="price" id="price" class="form-control" placeholder="Preço" aria-describedby="basic-addon1">
 				
 			<br><br>	
-			<input type="button" class="btn btn-primary" style="width: 100%" value="Cadastrar" onclick="createNewProduct();"/>
+			<input type="button" class="btn btn-primary" style="width: 100%" value="Cadastrar" onclick="editProduct(<%=p.getId()%>);"/>
 		</form>	
 	</div>
 </body>

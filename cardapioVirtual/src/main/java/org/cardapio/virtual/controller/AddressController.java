@@ -45,7 +45,7 @@ public class AddressController {
 	@RequestMapping(value = "/changeAddress", method=RequestMethod.GET)
 	public ModelAndView changeAddress(Model model, HttpSession session){
 		manager.forgetAddress(session);
-		return new ModelAndView("user/findEndereco");
+		return new ModelAndView("index");
 	}
 	
 	

@@ -7,8 +7,13 @@
 <title>Cardápio Virtual</title>
 </head>
 <body>
+<div style="postion: relative">
 <%@include file="common/menu.jsp" %>
-	<br/><br/><br/><br/><br/>
+		<div class="alert alert-danger" role="alert">
+		  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		  Sua empresa ainda não está cadastrada no Cardápio Virtual?
+		  	<a class="btn btn-danger" href="#" role="button">Cadastre aqui</a>
+		</div>
 	     <div class="container">
 	     	<div class="">
 			  <h3 align="center" style="color: #8B814C; font-family: cursive;">
@@ -60,5 +65,7 @@
                             </li>
                           </ul>
                   </div><!--/container-->
+<%@include file="common/footer.jsp" %>
+</div>
 </body>
 </html>

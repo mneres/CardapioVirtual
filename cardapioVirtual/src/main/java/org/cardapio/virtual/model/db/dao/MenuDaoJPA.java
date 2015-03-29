@@ -17,6 +17,7 @@ import org.cardapio.virtual.model.beans.Product;
 public class MenuDaoJPA implements MenuDao{
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("cardapioVirtual");
 	
+	@Transactional
 	public boolean add(Menu m){
 		EntityManager em = factory.createEntityManager();
 		try {
@@ -27,6 +28,25 @@ public class MenuDaoJPA implements MenuDao{
 			return false;
 		}
         em.close();
+		return true;
+	}
+	
+	@Transactional
+	public boolean remove(Long id){
+		EntityManager em = factory.createEntityManager();
+		Menu menu = em.find(Menu.class, id);
+		menu.getProduct().clear();
+		em.persist(menu);
+		if (menu != null) {
+			em.getTransaction().begin();
+			try{
+				 em.remove(menu);
+			} catch (Exception e) {
+				return false;
+			}
+			em.getTransaction().commit();
+		}
+		em.close();
 		return true;
 	}
 
@@ -62,6 +82,21 @@ public class MenuDaoJPA implements MenuDao{
 			String select = String.format("SELECT m FROM Menu m WHERE m.franchise =:franchise");
 			Query query = em.createQuery(select)
 					.setParameter("franchise", f);
+			lst = query.getResultList();
+		}catch(Exception e){
+	
+		}
+		em.close();	
+		return lst;
+	}
+	
+	public List<Menu> listbyProduct(Product p){
+		EntityManager em = factory.createEntityManager();
+		List<Menu> lst = new ArrayList<Menu>();
+		try{
+			String select = String.format("SELECT m FROM Menu m WHERE m.product =:product");
+			Query query = em.createQuery(select)
+					.setParameter("product", p.getId());
 			lst = query.getResultList();
 		}catch(Exception e){
 	

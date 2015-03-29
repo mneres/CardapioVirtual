@@ -7,7 +7,7 @@
 
 <!-- Shop Item CSS -->
     <link href="${pageContext.request.contextPath}/static/css/shop-item.css" rel="stylesheet">
-
+	<link href="${pageContext.request.contextPath}/static/css/background_default.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
@@ -17,14 +17,12 @@
 	<c:if test="${empty AddressCep}">
 	   <c:redirect url="<%=request.getContextPath()%>"/>
 	</c:if>
-			<div class="container-fluid">
-				  <h4 align="center" style="color: #8B814C; font-family: cursive;">
-						Filtre sua Busca!
-				  </h4>
-				  <br />
-					  <form method="GET" action="listByTypeOrName">
-					  		<div class="container">
+			<div class="container" style="width: 100%">
+					  <form method="GET" action="listByTypeOrName" style="width: 100%">
                           		<ul class="list-group-item"  align="center" style="list-style: none;">
+                          		  <h4 align="center" style="color: #8B814C; font-family: cursive;">
+										Filtre sua Busca!
+								  </h4>
                             	   	<li>
                             			<h5 align="left">Nome do Restaute</h5>
                             			<input type="text" name="name" value="${restaurantName}" id="name" class="form-control" placeholder="Digite o nome de um restaurante que deseja." aria-describedby="basic-addon1">
@@ -38,6 +36,10 @@
                                                 <option>Relish</option>
                                          </select>
                             		</li>
+                            		<li>
+                                        <h5 align="left">Distância</h5>
+                                        <input type="text" name="distance" value="10" id="distance" class="form-control" placeholder="Valor em KM" aria-describedby="basic-addon1">
+                            		</li>
                             		<br/>
                             		<li>
                             			<button type="submit" class="btn btn-default btn-success btn-lg">
@@ -45,7 +47,6 @@
 											</button>
                             		</li>
                             	</ul>
-                            </div>
 					   </form>
 					   <br />
 			</div>

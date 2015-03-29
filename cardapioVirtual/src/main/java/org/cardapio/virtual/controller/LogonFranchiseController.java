@@ -55,6 +55,12 @@ public class LogonFranchiseController {
 		return new ModelAndView("restaurant/franchise/loginFranchise");
 	}	
 	
+	@RequestMapping(value = "logoff", method = RequestMethod.GET)
+	public ModelAndView logoff(HttpSession session){
+		manager.logout(session);
+		return new ModelAndView("restaurant/franchise/loginFranchise");
+	}	
+	
 	@RequestMapping(value = "homeFranchise", method = RequestMethod.GET)
 	public ModelAndView homeFranchise(Model model, HttpSession session){
 		ModelAndView mv = new ModelAndView("restaurant/franchise/homeFranchise");
@@ -92,4 +98,12 @@ public class LogonFranchiseController {
 		mv.addObject("franchise",idFranchise);
 		return mv;
 	}	
+	
+	@RequestMapping(value = "addMenu", method = RequestMethod.GET)
+	public ModelAndView addMenu(
+			@RequestParam(value="idfranchise", required=true) String idFranchise){
+		ModelAndView mv = new ModelAndView("restaurant/franchise/addMenu");
+		mv.addObject("franchise",idFranchise);
+		return mv;
+	}
 }

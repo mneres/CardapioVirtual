@@ -3,6 +3,8 @@ package org.cardapio.virtual.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.cardapio.virtual.model.beans.Franchise;
 import org.cardapio.virtual.model.beans.Menu;
 import org.cardapio.virtual.model.beans.service.KeyGoogle;
@@ -33,6 +35,9 @@ public class RestaurantsController {
 	private static final String listOfRestaurants = "restaurant/listOfRestaurants";
 	private static final String listByAddress = "restaurant/teste";
 	private static final String listById = "restaurant/restaurant";
+	private static final String AddEvaluation = "restaurant/product/addEvaluation";
+	private static final String EditEvaluation = "restaurant/product/listEvaluation";
+	private static final String logar = "";
 	
 	@RequestMapping(value = "/listByJson", method=RequestMethod.GET)
 	public @ResponseBody List<Franchise> listByAddressJson() {
@@ -128,6 +133,27 @@ public class RestaurantsController {
 		
 		mv.addObject("restaurant", f);
 		mv.addObject("menu", m);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/addEvaluation", method=RequestMethod.GET)
+	public ModelAndView addEvaluation(HttpSession session,
+			@RequestParam(value="idProd", required=true) String idProd) {
+		
+		ModelAndView mv = new ModelAndView(AddEvaluation);
+		
+		mv.addObject("idProd", idProd);
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/listEvaluation", method=RequestMethod.GET)
+	public ModelAndView addEvaluation(@RequestParam(value="idProd", required=true) String idProd) {
+		
+		ModelAndView mv = new ModelAndView(EditEvaluation);
+		
+		mv.addObject("idProd", idProd);
 		
 		return mv;
 	}

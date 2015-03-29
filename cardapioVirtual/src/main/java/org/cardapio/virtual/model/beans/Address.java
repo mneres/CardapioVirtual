@@ -18,7 +18,7 @@ public class Address implements Serializable{
 	@Column(name="ID_ADDRESS")
 	private Long id;
 	private String street;
-	private double ad_number;
+	private int ad_number;
 	private String neighborhood;
 	private String code;
 	private String city;
@@ -35,10 +35,10 @@ public class Address implements Serializable{
 	public void setStreet(String street) {
 		this.street = street;
 	}
-	public double getAd_number() {
+	public int getAd_number() {
 		return ad_number;
 	}
-	public void setAd_number(double ad_number) {
+	public void setAd_number(int ad_number) {
 		this.ad_number = ad_number;
 	}
 	public String getNeighborhood() {

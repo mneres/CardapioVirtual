@@ -46,7 +46,7 @@
 			
 			<br>	
 			<label for="price">Preço</label>
-			<input type="text" name="price" id="price" class="form-control" placeholder="Preço" aria-describedby="basic-addon1">
+			<input type="text" name="price" id="price" class="form-control" placeholder="Price" aria-describedby="basic-addon1">
 				
 			<br><br>	
 			<input type="button" class="btn btn-primary" style="width: 100%" value="Cadastrar" onclick="createNewProduct();"/>

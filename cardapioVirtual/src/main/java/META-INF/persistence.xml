@@ -9,6 +9,7 @@
 		<class>org.cardapio.virtual.model.beans.Franchise</class>
 		<class>org.cardapio.virtual.model.beans.Product</class>
 		<class>org.cardapio.virtual.model.beans.Menu</class>
+		<class>org.cardapio.virtual.model.beans.EvaluationProduct</class>
             <properties>  
             
             <!--dados da conexao-->

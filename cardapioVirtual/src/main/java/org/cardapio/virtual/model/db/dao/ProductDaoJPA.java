@@ -22,6 +22,15 @@ public class ProductDaoJPA implements ProductDao{
 		em.close();
 	}
 	
+	@Transactional
+	public void edit(Product p) {
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(p);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
 	public Product findById(Long id){
 		if (id != null) {
 			EntityManager em = factory.createEntityManager();
